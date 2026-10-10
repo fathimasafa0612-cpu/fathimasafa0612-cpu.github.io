@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fathima Safa — Software Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Inter:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF7F9;
+    --paper-raised: #FFFFFF;
+    --ink: #332B36;
+    --ink-soft: #6E5F6B;
+    --ink-faint: #9B8B96;
+    --mauve: #8C7284;
+    --lavender: #B1B7D1;
+    --pink: #D1B1C8;
+    --line: rgba(140,114,132,0.16);
+    --line-strong: rgba(140,114,132,0.32);
+    --sans: 'Inter', -apple-system, sans-serif;
+    --disp: 'Playfair Display', Georgia, serif;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration:0.01ms !important; animation-delay:0ms !important; transition-duration:0.01ms !important; }
+  }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:var(--mauve); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--mauve); outline-offset:3px; }
+  ::selection{ background:rgba(209,177,200,0.4); color:var(--ink); }
+
+  .wrap{ max-width:1000px; margin:0 auto; padding:0 28px; }
+
+  .glow{
+    position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(650px 380px at 10% -8%, rgba(209,177,200,0.35), transparent 60%),
+      radial-gradient(560px 460px at 102% 10%, rgba(177,183,209,0.28), transparent 55%),
+      var(--paper);
+  }
+
+  header.top{
+    position:sticky; top:0; z-index:10;
+    background:rgba(250,247,249,0.84);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; padding:20px 0; }
+  .mark{
+    font-family:var(--disp); font-weight:600; font-style:italic;
+    font-size:19px; text-decoration:none; color:var(--ink);
+  }
+  .mark em{ font-style:normal; color:var(--mauve); }
+  nav.links{ display:flex; gap:32px; }
+  nav.links a{
+    position:relative;
+    color:var(--ink-soft); text-decoration:none; font-size:14px;
+    padding:2px 0;
+  }
+  nav.links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-2px; height:1px;
+    background:var(--mauve); transform:scaleX(0); transform-origin:left;
+    transition:transform .25s ease;
+  }
+  nav.links a:hover{ color:var(--ink); }
+  nav.links a:hover::after{ transform:scaleX(1); }
+  @media (max-width:640px){ nav.links{ gap:16px; font-size:13px; } }
+
+  /* ---------- entrance animation ---------- */
+  @keyframes riseIn{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .rise{ animation:riseIn .7s cubic-bezier(.2,.7,.2,1) both; }
+  .rise-1{ animation-delay:.05s; }
+  .rise-2{ animation-delay:.16s; }
+  .rise-3{ animation-delay:.27s; }
+  .rise-4{ animation-delay:.38s; }
+
+  /* ---------- scroll reveal ---------- */
+  .reveal{
+    opacity:0; transform:translateY(18px);
+    transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:96px 0 64px; }
+  .hero-kicker{ font-size:13px; letter-spacing:0.03em; color:var(--mauve); margin:0 0 22px; }
+  h1.name{
+    font-family:var(--disp); font-weight:600;
+    font-size:clamp(2.6rem, 5.6vw, 4.2rem);
+    line-height:1.06; margin:0 0 10px; letter-spacing:-0.01em; color:var(--ink);
+  }
+  .role{
+    font-family:var(--disp); font-style:italic; font-weight:500;
+    font-size:clamp(1.2rem, 2.2vw, 1.5rem); color:var(--mauve); margin:0 0 30px;
+  }
+  .summary{ max-width:620px; font-size:17px; color:var(--ink-soft); margin:0 0 52px; }
+
+  .stat-row{ display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .stat{ background:var(--paper-raised); padding:22px 20px; transition:background .25s ease; }
+  .stat:hover{ background:linear-gradient(160deg, #fff, rgba(209,177,200,0.14)); }
+  .stat .num{ font-family:var(--disp); font-style:italic; font-weight:600; font-size:1.7rem; color:var(--mauve); display:block; }
+  .stat .label{ font-size:12.5px; color:var(--ink-soft); margin-top:6px; display:block; line-height:1.45; }
+  @media (max-width:720px){ .stat-row{ grid-template-columns:repeat(2,1fr); } }
+
+  /* ---------- section shell ---------- */
+  section{ padding:72px 0; border-top:1px solid var(--line); }
+  .section-head{ margin-bottom:40px; }
+  .section-head .tag{ font-size:12.5px; letter-spacing:0.04em; color:var(--lavender); display:block; margin-bottom:8px; }
+  .section-head h2{ font-family:var(--disp); font-weight:600; font-style:italic; font-size:1.9rem; margin:0; color:var(--ink); }
+
+  /* ---------- experience ---------- */
+  .role-block{ display:grid; grid-template-columns:150px 1fr; gap:28px; padding:32px 0; }
+  .role-block + .role-block{ border-top:1px solid var(--line); }
+  .role-date{ font-size:13px; color:var(--lavender); padding-top:3px; font-weight:500; }
+  .role-main h3{ font-family:var(--disp); font-size:1.25rem; margin:0 0 4px; font-weight:600; color:var(--ink); }
+  .role-org{ color:var(--mauve); font-size:14.5px; margin:0 0 4px; font-weight:500; }
+  .role-note{ font-size:13px; color:var(--ink-faint); margin:0 0 16px; font-style:italic; }
+  .role-main ul{ margin:0; padding-left:18px; }
+  .role-main li{ margin-bottom:11px; color:var(--ink-soft); font-size:15px; }
+  .role-main li::marker{ color:var(--pink); }
+  @media (max-width:640px){ .role-block{ grid-template-columns:1fr; gap:10px; } }
+
+  /* ---------- projects ---------- */
+  .proj-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .proj{
+    background:var(--paper-raised);
+    border:1px solid var(--line-strong);
+    border-radius:12px;
+    padding:30px 28px;
+    display:flex; flex-direction:column;
+    transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .proj:hover{
+    transform:translateY(-4px);
+    box-shadow:0 18px 34px -18px rgba(140,114,132,0.35);
+    border-color:var(--mauve);
+  }
+  .proj-date{ font-size:12px; color:var(--mauve); margin-bottom:12px; letter-spacing:0.02em; }
+  .proj h3{ font-family:var(--disp); font-size:1.25rem; margin:0 0 16px; font-weight:600; color:var(--ink); }
+  .proj ul{ margin:0 0 20px; padding-left:18px; flex-grow:1; }
+  .proj li{ font-size:14.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .proj li::marker{ color:var(--lavender); }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); padding-top:16px; }
+  .stack-row span{
+    font-size:11.5px; color:var(--mauve);
+    background:rgba(177,183,209,0.16); border:1px solid rgba(140,114,132,0.22);
+    padding:4px 10px; border-radius:20px; transition:background .2s ease;
+  }
+  .proj:hover .stack-row span{ background:rgba(209,177,200,0.22); }
+  @media (max-width:720px){ .proj-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- skills ---------- */
+  .skill-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:32px; }
+  .skill-col .col-title{
+    font-family:var(--disp); font-style:italic; font-size:14px; color:var(--mauve);
+    margin:0 0 16px; padding-bottom:10px; border-bottom:1px solid var(--line);
+  }
+  .skill-col ul{ list-style:none; margin:0; padding:0; }
+  .skill-col li{ font-size:14.5px; color:var(--ink-soft); padding:6px 0; transition:color .2s ease, transform .2s ease; }
+  .skill-col li:hover{ color:var(--ink); transform:translateX(3px); }
+  @media (max-width:820px){ .skill-grid{ grid-template-columns:1fr 1fr; row-gap:28px; } }
+
+  /* ---------- education ---------- */
+  .edu-row{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px; padding:20px 0; border-bottom:1px solid var(--line); }
+  .edu-row h3{ font-family:var(--disp); font-size:1.1rem; margin:0; font-weight:600; color:var(--ink); }
+  .edu-row .place{ color:var(--ink-soft); font-size:14px; }
+  .edu-row .when{ font-size:13px; color:var(--lavender); font-weight:500; }
+  .placeholder{ color:var(--ink-faint); }
+
+  /* ---------- contact ---------- */
+  .contact{ display:flex; flex-wrap:wrap; gap:16px 34px; margin-top:8px; }
+  .contact a, .contact span{
+    font-size:14px; color:var(--ink);
+    text-decoration:none; border-bottom:1px solid var(--line-strong); padding-bottom:3px;
+    transition:color .2s ease, border-color .2s ease;
+  }
+  .contact a:hover{ border-color:var(--mauve); color:var(--mauve); }
+  .contact .placeholder{ border-color:var(--line); }
+
+  footer{ padding:36px 0 64px; font-size:12.5px; color:var(--ink-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; border-top:1px solid var(--line); }
+
+  .edit-note{
+    font-size:12.5px; color:var(--ink-soft);
+    background:rgba(177,183,209,0.18);
+    border:1px solid rgba(140,114,132,0.3);
+    border-radius:8px; padding:12px 16px; margin-top:20px; max-width:620px;
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+
+<header class="top">
+  <div class="wrap topbar">
+    <a href="#top" class="mark">portfolio<em>.</em></a>
+    <nav class="links">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap">
+
+    <section class="hero" style="border-top:none; padding-top:96px;">
+      <p class="hero-kicker rise rise-1">Software Developer — full-stack &amp; systems</p>
+      <h1 class="name rise rise-2">Fathima Safa</h1>
+      <p class="role rise rise-3">Software Development Trainee, building production systems end to end</p>
+      <p class="summary rise rise-3">
+        BTech in Information Technology with hands-on experience building and shipping full-stack
+        web applications for real clients. Works across Node.js, React, MongoDB, and REST APIs, with
+        additional experience in AWS deployment and data analytics — translating client requirements
+        into production-ready systems under real deadlines.
+      </p>
+
+      <div class="stat-row rise rise-4">
+        <div class="stat">
+          <span class="num">1,000+</span>
+          <span class="label">employees served by a biometric attendance system in production</span>
+        </div>
+        <div class="stat">
+          <span class="num">70,000+</span>
+          <span class="label">attendance records synced with zero data loss</span>
+        </div>
+        <div class="stat">
+          <span class="num">3</span>
+          <span class="label">live client projects delivered concurrently</span>
+        </div>
+        <div class="stat">
+          <span class="num">9+</span>
+          <span class="label">relational data models in a single operations backend</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="reveal">
+      <div class="section-head">
+        <span class="tag">Where I've worked</span>
+        <h2>Experience</h2>
+      </div>
+
+      <div class="role-block">
+        <div class="role-date">Jun 2025 — Present</div>
+        <div class="role-main">
+          <h3>Software Development Trainee</h3>
+          <p class="role-org">AurinnHub Technologies, Dubai, UAE</p>
+          <p class="role-note">Promoted from Software Developer Intern (Mar 2025 – May 2025)</p>
+          <ul>
+            <li>Built and shipped a full-stack Biometric Device Management System integrating ZKTeco fingerprint hardware with a Node.js/Express REST API and React frontend, delivered to a live client managing attendance for 1,000+ employees across multiple work locations.</li>
+            <li>Architected RESTful APIs for device CRUD, attendance log sync, employee enrollment, backup/restore, and scheduled health checks — fully documented with request validation and structured error handling.</li>
+            <li>Designed MongoDB schemas with compound indexes for hot-path lookups (DeviceMapping, AttendanceLogs), reducing punch ingestion query time and handling 70,000+ attendance records with zero data loss.</li>
+            <li>Implemented a CRON-based auto-sync scheduler that pulls biometric logs from all active devices non-destructively, with per-device audit logging and deduplication via compound unique index.</li>
+            <li>Built RESTful CRUD modules backed by MySQL via Sequelize ORM, implementing pagination, search filtering, soft-delete patterns, and duplicate-check logic across relational tables.</li>
+            <li>Deployed applications to AWS (EC2/S3), managing environment configuration, server provisioning, and production deployment pipelines.</li>
+            <li>Concurrently managed and delivered 3 live client projects simultaneously, prioritizing tasks across codebases and meeting independent deadlines without dropping deliverables.</li>
+            <li>Collaborated directly with clients through multiple delivery cycles — gathering requirements, presenting progress, and iterating based on feedback under real project deadlines.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="role-block">
+        <div class="role-date">Aug 2025 — Nov 2025</div>
+        <div class="role-main">
+          <h3>Data Analyst Intern</h3>
+          <p class="role-org">Qspiders, Kochi</p>
+          <ul>
+            <li>Developed and implemented Power BI dashboards analyzing 10,000+ records, enabling stakeholders to assess business performance and make insight-led decisions.</li>
+            <li>Utilized advanced SQL techniques, including CTEs and window functions, to consolidate complex datasets and improve data accuracy and reliability by 15%.</li>
+            <li>Performed comprehensive data validation and quality checks to ensure consistency across multiple sources.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="reveal">
+      <div class="section-head">
+        <span class="tag">Selected work</span>
+        <h2>Projects</h2>
+      </div>
+
+      <div class="proj-grid">
+        <div class="proj">
+          <p class="proj-date">Aug 2026</p>
+          <h3>AI Customer Operations Platform</h3>
+          <ul>
+            <li>Built an AI customer operations platform with a full RAG pipeline (custom TF-IDF vector store, cosine similarity retrieval) and LLM tool-calling architecture to automate WhatsApp-based customer support, including live appointment booking, payment processing, and CRM updates.</li>
+            <li>Designed an intent-detection and confidence-scoring system with automatic escalation to human agents when AI confidence dropped below threshold, plus a rule-based fallback engine ensuring 100% uptime without dependency on external LLM APIs.</li>
+            <li>Architected an event-driven backend (Node/Express, SSE) powering a real-time operations dashboard for monitoring conversations, bookings, revenue, and escalations across 9+ relational data models.</li>
+          </ul>
+          <div class="stack-row">
+            <span>Node.js</span><span>Express</span><span>SSE</span><span>RAG</span><span>TF-IDF</span><span>LLM tool-calling</span>
+          </div>
+        </div>
+
+        <div class="proj">
+          <p class="proj-date">Aug 2026</p>
+          <h3>Bingo Task Tracker</h3>
+          <ul>
+            <li>Designed and built a gamified habit-tracking app for ADHD users using a Bingo-board metaphor, with a custom line-detection algorithm (rows, columns, diagonals) to reward task completion patterns and sustain engagement.</li>
+            <li>Implemented an XP/leveling and rewards system (streaks, coins, 20+ achievements) with persistent client-side state and animated feedback (confetti, sound/haptic cues, companion character reactions) to reinforce positive behavior loops.</li>
+            <li>Built a fully type-safe React 19 + TypeScript application with Tailwind CSS and Vite, including a task-preset system across 5+ categories and daily/weekly/custom board configurations.</li>
+          </ul>
+          <div class="stack-row">
+            <span>React 19</span><span>TypeScript</span><span>Tailwind CSS</span><span>Vite</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="reveal">
+      <div class="section-head">
+        <span class="tag">Toolkit</span>
+        <h2>Skills</h2>
+      </div>
+
+      <div class="skill-grid">
+        <div class="skill-col">
+          <p class="col-title">Languages &amp; frameworks</p>
+          <ul>
+            <li>JavaScript (ES6+)</li>
+            <li>Node.js</li>
+            <li>Express.js</li>
+            <li>React.js</li>
+            <li>Python</li>
+            <li>SQL</li>
+            <li>HTML / CSS</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <p class="col-title">Databases &amp; ORM</p>
+          <ul>
+            <li>MongoDB (Mongoose)</li>
+            <li>MySQL (Sequelize ORM)</li>
+            <li>MS SQL Server</li>
+            <li>PostgreSQL</li>
+            <li>Oracle</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <p class="col-title">Cloud &amp; analytics</p>
+          <ul>
+            <li>AWS (EC2, S3)</li>
+            <li>Power BI</li>
+            <li>Jupyter Notebook</li>
+          </ul>
+        </div>
+        <div class="skill-col">
+          <p class="col-title">Tools</p>
+          <ul>
+            <li>Git / GitHub</li>
+            <li>VS Code</li>
+            <li>Postman</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="reveal">
+      <div class="section-head">
+        <span class="tag">Foundation</span>
+        <h2>Education</h2>
+      </div>
+      <div class="edu-row">
+        <div>
+          <h3>BTech, Information Technology</h3>
+          <p class="place placeholder">A P J Abdul Kalam Technological University</p>
+        </div>
+        <div class="when placeholder">2025</div>
+      </div>
+      
+    </section>
+
+    <section id="contact" class="reveal">
+      <div class="section-head">
+        <span class="tag">Get in touch</span>
+        <h2>Contact</h2>
+      </div>
+      <p class="summary" style="margin-bottom:12px;">Open to software development roles — reach out directly.</p>
+      <div class="contact">
+        <a href="mailto:fathimasafa0612@gmail.com">fathimasafa0612@gmail.com</a>
+        <a href="https://github.com/fathimasafa0612-cpu" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://www.linkedin.com/in/fathimasafaptbb1a/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:8px;">
+    <span>Fathima Safa — Software Developer</span>
+    
+  </div>
+</footer>
+
+<script>
+  // one deliberate scroll-reveal pass per section — not per card, to avoid a busy feel
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
